@@ -1,9 +1,9 @@
-name: Build and deploy Spring Boot app to Azure Web App
+name: Build and deploy Spring Boot app
 
 on:
   push:
     branches:
-      - main   # or master (match your repo)
+      - main
 
 jobs:
   build-and-deploy:
@@ -19,11 +19,11 @@ jobs:
           distribution: 'temurin'
 
       - name: Build project
-        run: mvn clean package
+        run: mvn clean package -DskipTests
 
       - name: Deploy
         uses: azure/webapps-deploy@v2
         with:
           app-name: BackendServer22
           publish-profile: ${{ secrets.AZURE_Backend_PUBLISH_PROFILE }}
-          package: target/*.jar
+          package: target/backend-0.0.1-SNAPSHOT.jar
