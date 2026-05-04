@@ -3,28 +3,27 @@ name: Build and deploy Spring Boot app to Azure Web App
 on:
   push:
     branches:
-      - master
+      - main   # or master (match your repo)
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Setup Java
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Maven
+      - name: Build project
         run: mvn clean package
 
-      - name: Deploy to Azure Web App
+      - name: Deploy
         uses: azure/webapps-deploy@v2
         with:
-          app-name: your-backend-app
+          app-name: BackendServer22
           publish-profile: ${{ secrets.AZURE_Backend_PUBLISH_PROFILE }}
           package: target/*.jar
