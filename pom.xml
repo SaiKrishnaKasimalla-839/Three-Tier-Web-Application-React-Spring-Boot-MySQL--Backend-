@@ -5,6 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Spring Boot Parent -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -18,7 +19,6 @@
     <name>backend</name>
     <description>Spring Boot Backend</description>
 
-    <!-- IMPORTANT -->
     <packaging>jar</packaging>
 
     <properties>
@@ -46,7 +46,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Optional: Lombok -->
+        <!-- Lombok (optional) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -62,9 +62,9 @@
 
     </dependencies>
 
-    <!-- VERY IMPORTANT FOR JAR -->
     <build>
         <plugins>
+            <!-- REQUIRED for executable JAR -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
