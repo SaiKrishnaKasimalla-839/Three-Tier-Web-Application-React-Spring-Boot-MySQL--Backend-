@@ -12,25 +12,45 @@ public class AuthService {
     private UserRepository userRepository;
 
     public String signup(User user) {
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            return "User already exists ❌";
-        }
+        try {
 
-        userRepository.save(user);
-        return "User registered successfully ✅";
+            if (user.getUsername() == null || user.getPassword() == null) {
+                return "Invalid input ❌";
+            }
+
+            User existingUser = userRepository.findByUsername(user.getUsername());
+
+            if (existingUser != null) {
+                return "User already exists ❌";
+            }
+
+            userRepository.save(user);
+            return "User registered successfully ✅";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "ERROR: " + e.getMessage();
+        }
     }
 
     public String login(User user) {
-        User existingUser = userRepository.findByUsername(user.getUsername());
+        try {
 
-        if (existingUser == null) {
-            return "User not found ❌";
+            User existingUser = userRepository.findByUsername(user.getUsername());
+
+            if (existingUser == null) {
+                return "User not found ❌";
+            }
+
+            if (!existingUser.getPassword().equals(user.getPassword())) {
+                return "Invalid password ❌";
+            }
+
+            return "Login successful ✅";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "ERROR: " + e.getMessage();
         }
-
-        if (!existingUser.getPassword().equals(user.getPassword())) {
-            return "Invalid password ❌";
-        }
-
-        return "Login successful ✅";
     }
 }
