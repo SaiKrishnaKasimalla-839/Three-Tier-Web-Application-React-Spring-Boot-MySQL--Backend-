@@ -1,9 +1,3 @@
-package com.example.backend;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.*;
-
 @Configuration
 public class CorsConfig {
 
@@ -13,9 +7,13 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
-                        .allowedMethods("*")   // allow ALL incl OPTIONS
-                        .allowedHeaders("*");
+                        .allowedOrigins(
+                            "https://webappservice22-hff6bzeef8fbfvhx.canadacentral-01.azurewebsites.net",
+                            "http://localhost:3000"
+                        )
+                        .allowedMethods("*")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
